@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071426">
+  <title>高二物联网考试题库</title>
+  <meta name="description" content="物联网原题与考试范围互动题库，支持背题、模拟考试和错题复习。">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="返回题库首页">
+      <span class="brand-mark">IoT</span>
+      <span><strong>物联网考试题库</strong><small>高二 · 原题与考试范围</small></span>
+    </a>
+    <div class="top-stats" aria-label="学习进度">
+      <span><b id="statDone">0</b> 已练</span>
+      <span><b id="statAccuracy">0%</b> 正确率</span>
+      <span><b id="statWrong">0</b> 错题</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">2026–2027 第一段考试复习</p>
+        <h1>把老师原题和四份 PPT<br><em>练成真正会做的题</em></h1>
+        <p class="hero-copy">题目覆盖物联网架构、通信协议、传感器与信号处理、先进感测、卫星定位、RFID 与低功耗广域通信。</p>
+      </div>
+      <div class="coverage" aria-label="题库概况">
+        <div><b id="totalCount">0</b><span>总题数</span></div>
+        <div><b id="originalCount">0</b><span>老师原题</span></div>
+        <div><b>5</b><span>知识模块</span></div>
+      </div>
+    </section>
+
+    <nav class="mode-tabs" aria-label="练习模式">
+      <button class="mode active" data-mode="study"><span>01</span>背题模式<small>点选后立即判分</small></button>
+      <button class="mode" data-mode="exam"><span>02</span>模拟考试<small>随机组卷后统一交卷</small></button>
+      <button class="mode" data-mode="wrong"><span>03</span>错题本<small>集中重练答错题目</small></button>
+    </nav>
+
+    <section class="workspace">
+      <aside class="sidebar">
+        <div class="side-block">
+          <h2>筛选范围</h2>
+          <label>章节
+            <select id="chapterFilter">
+              <option value="all">全部章节</option>
+              <option value="基础">第一章 · 物联网基础</option>
+              <option value="架构">第二章 · 架构与通信</option>
+              <option value="设备">第三章 · 设备与信号</option>
+              <option value="感测">第四章 · 先进感测</option>
+              <option value="补充">补充 · 识别与组网</option>
+            </select>
+          </label>
+          <label>题目来源
+            <select id="sourceFilter">
+              <option value="all">原题 + 衍生题</option>
+              <option value="original">只看老师原题</option>
+              <option value="ppt">只看 PPT 衍生题</option>
+            </select>
+          </label>
+          <label>难度
+            <select id="difficultyFilter">
+              <option value="all">全部难度</option>
+              <option value="基础">基础</option>
+              <option value="进阶">进阶</option>
+              <option value="易错">易错</option>
+            </select>
+          </label>
+        </div>
+        <div class="side-block chapter-map">
+          <h2>知识覆盖</h2>
+          <div><span>物联网基础</span><i style="--w:100%"></i></div>
+          <div><span>架构与协议</span><i style="--w:100%"></i></div>
+          <div><span>传感与信号</span><i style="--w:100%"></i></div>
+          <div><span>定位与感测</span><i style="--w:100%"></i></div>
+          <div><span>RFID 与 LPWA</span><i style="--w:100%"></i></div>
+        </div>
+        <button class="ghost full" id="resetProgress">清空本机练习记录</button>
+      </aside>
+
+      <section class="content-panel">
+        <div id="studyView">
+          <div class="panel-head">
+            <div><p id="questionMeta">准备开始</p><h2 id="questionTitle">背题模式</h2></div>
+            <div class="head-actions"><button class="ghost" id="randomBtn">随机一题</button></div>
+          </div>
+          <div class="progress-track"><span id="progressBar"></span></div>
+          <article class="question-card" id="questionCard"></article>
+          <div class="question-nav">
+            <button class="ghost" id="prevBtn">上一题</button>
+            <span id="positionText">0 / 0</span>
+            <button class="primary" id="nextBtn">下一题</button>
+          </div>
+        </div>
+
+        <div id="examView" hidden>
+          <div class="panel-head"><div><p>随机抽取 20 题</p><h2>模拟考试</h2></div><button class="ghost" id="newExamBtn">重新组卷</button></div>
+          <div id="examIntro" class="exam-intro">
+            <b>20 题 · 每题 5 分 · 满分 100 分</b>
+            <p>交卷前不显示答案。题目从当前筛选范围内随机抽取，单选与判断直接点选，多选题可选择多个答案。</p>
+            <button class="primary" id="startExamBtn">开始考试</button>
+          </div>
+          <form id="examForm" hidden></form>
+          <div id="examActions" class="exam-actions" hidden><button class="primary" id="submitExamBtn" type="button">提交并评分</button></div>
+          <div id="examResult" class="exam-result" hidden></div>
+        </div>
+
+        <div id="wrongView" hidden>
+          <div class="panel-head"><div><p>自动收录答错题目</p><h2>错题本</h2></div><button class="ghost" id="clearWrongBtn">清空错题</button></div>
+          <div id="wrongList" class="wrong-list"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer><span>高二物联网考试题库</span><span>练习记录仅保存在当前浏览器</span></footer>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
