@@ -59,6 +59,9 @@
             <select id="sourceFilter">
               <option value="all">原题 + 衍生题</option>
               <option value="original">只看老师原题</option>
+              <option value="past">上次测验原题</option>
+              <option value="sim1">模拟题一</option>
+              <option value="sim2">模拟题二</option>
               <option value="ppt">只看 PPT 衍生题</option>
             </select>
           </label>
@@ -100,6 +103,7 @@
         <div id="examView" hidden>
           <div class="panel-head"><div><p>随机抽取 20 题</p><h2>模拟考试</h2></div><button class="ghost" id="newExamBtn">重新组卷</button></div>
           <div id="examIntro" class="exam-intro">
+            <label class="exam-set">组卷范围 <select id="examSetFilter"><option value="random">随机综合卷</option><option value="sim1">模拟题一</option><option value="sim2">模拟题二</option></select></label>
             <b>20 题 · 每题 5 分 · 满分 100 分</b>
             <p>交卷前不显示答案。题目从当前筛选范围内随机抽取，单选与判断直接点选，多选题可选择多个答案。</p>
             <button class="primary" id="startExamBtn">开始考试</button>
@@ -119,6 +123,7 @@
 
   <footer><span>高二物联网考试题库</span><span>练习记录仅保存在当前浏览器</span></footer>
   <script src="questions.js"></script>
+  <script src="extra-questions.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -41,7 +41,7 @@
   }
   function applyFilters(){
     const ch=$("#chapterFilter").value,src=$("#sourceFilter").value,diff=$("#difficultyFilter").value;
-    filtered=bank.filter(q=>(ch==="all"||q.chapter===ch)&&(src==="all"||(src==="original"?q.original:!q.original))&&(diff==="all"||q.difficulty===diff));
+    filtered=bank.filter(q=>(ch==="all"||q.chapter===ch)&&(src==="all"||(src==="original"?q.original:src==="ppt"?!q.original:src==="past"?(q.source.includes("上次测验")):q.source===src))&&(diff==="all"||q.difficulty===diff));
     if(currentIndex>=filtered.length)currentIndex=0;
     renderStudy();
   }
@@ -112,7 +112,9 @@
   }
 
   function startExam(){
-    const pool=filtered.length?filtered:bank;examQuestions=shuffle(pool).slice(0,Math.min(20,pool.length));
+    const set=$("#examSetFilter")?.value||"random";
+    const setPool=set==="sim1"?bank.filter(q=>q.source==="模拟题一"):set==="sim2"?bank.filter(q=>q.source==="模拟题二"):(filtered.length?filtered:bank);
+    examQuestions=shuffle(setPool).slice(0,Math.min(20,setPool.length));
     $("#examIntro").hidden=true;$("#examForm").hidden=false;$("#examActions").hidden=false;$("#examResult").hidden=true;
     $("#examForm").innerHTML=examQuestions.map((q,qi)=>`<section class="exam-question" data-qi="${qi}"><div class="badges"><span class="badge">第 ${qi+1} 题</span><span class="badge">${typeName(q)}</span>${q.original?'<span class="badge original">老师原题</span>':''}</div><h3>${esc(q.text)}</h3>${q.options.map((o,i)=>`<label><input type="${q.type==='multi'?'checkbox':'radio'}" name="exam-${qi}" value="${i}"><span>${letters[i]}. ${esc(o)}</span></label>`).join("")}<div class="exam-feedback"></div></section>`).join("");
     $("#examView .panel-head p").textContent=`随机抽取 ${examQuestions.length} 题`;
